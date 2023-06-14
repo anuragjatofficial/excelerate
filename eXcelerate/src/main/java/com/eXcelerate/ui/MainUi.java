@@ -33,25 +33,35 @@ public class MainUi {
 
 	public static void mainUi(Scanner sc) {
 		int choice = 0;
+
+		/**
+		 * This do while loop will work as Main UI it will run outlast 1 time so that we
+		 * can visualize the APP
+		 */
 		do {
 			System.out.println("");
 			System.out.println(ANSI_GREEN + "Press 1." + ANSI_RESET + " Login as Instructor");
-			System.out.println(ANSI_GREEN + "Press 2." + ANSI_RESET + " Login as Student");
-			System.out.println(ANSI_GREEN + "Press 3." + ANSI_RESET + " Login as Admin");
-			System.out.println(ANSI_GREEN + "Press 2." + ANSI_RESET + " Exit app");
+			System.out.println(ANSI_GREEN + "Press 2." + ANSI_RESET + " Register as Instructor");
+			System.out.println(ANSI_GREEN + "Press 3." + ANSI_RESET + " Login as Student");
+			System.out.println(ANSI_GREEN + "Press 4." + ANSI_RESET + " Register as Student");
+			System.out.println(ANSI_GREEN + "Press 5." + ANSI_RESET + " Login as admin");
+			System.out.println(ANSI_GREEN + "Press 0." + ANSI_RESET + " Exit app");
 			System.out.println("");
 			System.out.print(ANSI_GREEN_BACKGROUND + "Enter your choice :" + ANSI_RESET + "\t");
 			choice = sc.nextInt();
 			System.out.println("");
 			switch (choice) {
-//			case 1 -> instructorLogin();
-//			case 2 -> studentLogin();
-//			case 3 -> adminLogin();
-			case 4 -> {System.out.println("Thanks for using our services .. !"); choice = 0;}
-			default ->
-				System.out.println("unexpected choice " + choice);
+			case 1 -> LoginUi.instructorLogin(sc);
+			case 2 -> RegisterUi.registerInstrucor(sc);
+			case 3 -> LoginUi.studentLogin(sc);
+			case 4 -> RegisterUi.registerStudent(sc);
+			case 5 -> LoginUi.adminLogin(sc);
+			case 0 -> {
+				System.out.println("Thanks for using our services .. !");
+				choice = 0;
 			}
-		}while(choice!=0);
-
+			default -> System.out.println("unexpected choice " + choice);
+			}
+		} while (choice != 0);
 	}
 }

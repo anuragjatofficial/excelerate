@@ -1,5 +1,8 @@
 package com.eXcelerate.entities;
 
+import javax.persistence.Column;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
 
@@ -10,9 +13,15 @@ import javax.persistence.MappedSuperclass;
 @MappedSuperclass
 public class User {
 	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private int id;
+	@Column(unique = true,nullable = false,length = 50)
 	private String username;
+	@Column(nullable = false, length = 50)
 	private String password;
+	@Column(nullable = false, length = 50)
 	private String name;
+	@Column(name = "is_deleted",nullable = false)
 	private Boolean isDeleted;
 
 	public User() {
@@ -25,6 +34,10 @@ public class User {
 		this.password = password;
 		this.name = name;
 		this.isDeleted = isDeleted;
+	}
+	
+	public int getId() {
+		return id;
 	}
 
 	public String getUsername() {
@@ -58,4 +71,11 @@ public class User {
 	public void setIsDeleted(Boolean isDeleted) {
 		this.isDeleted = isDeleted;
 	}
+
+	@Override
+	public String toString() {
+		return "User [id=" + id + ", username=" + username + ", password=" + password + ", name=" + name
+				+ ", isDeleted=" + isDeleted + "]";
+	}
+	
 }
