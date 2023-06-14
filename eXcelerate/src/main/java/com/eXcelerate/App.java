@@ -2,6 +2,8 @@ package com.eXcelerate;
 
 import java.util.Scanner;
 
+import com.eXcelerate.ui.MainUi;
+
 /**
  * @author Anurag Choudhary
  *
@@ -18,5 +20,7 @@ import java.util.Scanner;
 public class App {
 	public static void main(String[] args) {
 		Scanner sc = new Scanner(System.in);
+		System.out.println("Welcome to eXcelerate: Accelerating Learning through Online Platforms");
+		MainUi.mainUi(sc);
 	}
 }
