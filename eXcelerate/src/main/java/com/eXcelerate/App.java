@@ -16,7 +16,7 @@ import com.eXcelerate.ui.MainUi;
  *         progress tracking, performance analytics, and communication tools,
  *         the online learning management system enhances the teaching and
  *         learning experience.
- */
+ */ 
 public class App {
 	public static void main(String[] args) {
 		Scanner sc = new Scanner(System.in);

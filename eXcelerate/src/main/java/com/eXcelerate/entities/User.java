@@ -1,6 +1,8 @@
 package com.eXcelerate.entities;
 
 import javax.persistence.Column;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -21,19 +23,20 @@ public class User {
 	private String password;
 	@Column(nullable = false, length = 50)
 	private String name;
-	@Column(name = "is_deleted",nullable = false)
-	private Boolean isDeleted;
+	@Column(name = "account_status",nullable = false)
+	@Enumerated(EnumType.STRING)
+	private State accountStatus;
 
 	public User() {
 		super();
 	}
 
-	public User(String username, String password, String name, Boolean isDeleted) {
+	public User(String username, String password, String name, State accountStatus) {
 		super();
 		this.username = username;
 		this.password = password;
 		this.name = name;
-		this.isDeleted = isDeleted;
+		this.accountStatus = accountStatus;
 	}
 	
 	public int getId() {
@@ -64,18 +67,18 @@ public class User {
 		this.name = name;
 	}
 
-	public Boolean getIsDeleted() {
-		return isDeleted;
+	public State getAccountStatus() {
+		return accountStatus;
 	}
 
-	public void setIsDeleted(Boolean isDeleted) {
-		this.isDeleted = isDeleted;
+	public void setAccountStatus(State accountStatus) {
+		this.accountStatus = accountStatus;
 	}
-
+	
 	@Override
 	public String toString() {
 		return "User [id=" + id + ", username=" + username + ", password=" + password + ", name=" + name
-				+ ", isDeleted=" + isDeleted + "]";
+				+ ", accountStatus=" + accountStatus + "]";
 	}
 	
 }
