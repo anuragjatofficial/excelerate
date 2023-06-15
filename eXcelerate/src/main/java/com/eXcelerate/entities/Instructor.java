@@ -9,8 +9,8 @@ public class Instructor extends User {
 		super();
 	}
 
-	public Instructor(String username, String password, String name, Boolean isDeleted) {
-		super(username, password, name, isDeleted);
+	public Instructor(String username, String password, String name, State accountStatus) {
+		super(username, password, name, accountStatus);
 	}
-	
+
 }

@@ -1,20 +1,31 @@
 package com.eXcelerate.services;
 
-public class LoginServices implements ILoginServices{
+import com.eXcelerate.dao.ILoginServicesDao;
+import com.eXcelerate.dao.LoginServicesDao;
+import com.eXcelerate.exceptions.NoSuchRecordFoundException;
+import com.eXcelerate.exceptions.SomethingWentWrongException;
+
+public class LoginServices implements ILoginServices {
 
 	@Override
-	public void LoginStudent() {
-		
+	public Boolean LoginStudent(String username, String password)
+			throws SomethingWentWrongException, NoSuchRecordFoundException {
+		ILoginServicesDao iLd = new LoginServicesDao();
+		return iLd.LoginStudent(username, password);
 	}
 
 	@Override
-	public void LoginInstructor() {
-		
+	public Boolean LoginInstructor(String username, String password)
+			throws SomethingWentWrongException, NoSuchRecordFoundException {
+		ILoginServicesDao iLd = new LoginServicesDao();
+		return iLd.LoginInstructor(username, password);
 	}
 
 	@Override
-	public void LoginAdmin() {
-		
+	public Boolean LoginAdmin(String username, String password) {
+		if (username.equals("admin") && password.equals("admin"))
+			return true;
+		return false;
 	}
-	
+
 }

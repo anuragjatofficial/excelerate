@@ -9,8 +9,8 @@ public class Student extends User {
 		super();
 	}
 
-	public Student(String username, String password, String name, Boolean isDeleted) {
-		super(username, password, name, isDeleted);
+	public Student(String username, String password, String name, State accountStatus) {
+		super(username, password, name, accountStatus);
 	}
-	
+
 }
