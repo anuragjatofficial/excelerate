@@ -74,7 +74,7 @@ public class User {
 	public void setAccountStatus(State accountStatus) {
 		this.accountStatus = accountStatus;
 	}
-
+	
 	@Override
 	public String toString() {
 		return "User [id=" + id + ", username=" + username + ", password=" + password + ", name=" + name

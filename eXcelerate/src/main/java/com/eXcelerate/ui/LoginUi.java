@@ -19,6 +19,7 @@ public class LoginUi {
 		try {
 			if (iLs.LoginInstructor(username, password)) {
 				System.out.println("Login succes .. !");
+				InstructorUi.showInstructorUi(sc);
 			} else {
 				System.out.println("incorrect username or password ");
 			}
@@ -38,6 +39,7 @@ public class LoginUi {
 		try {
 			if (iLs.LoginStudent(username, password)) {
 				System.out.println("Login succes .. !");
+				StudentUi.showStudentUi(sc);
 			} else {
 				System.out.println("incorrect username or password ");
 			}

@@ -5,6 +5,7 @@ import javax.persistence.NoResultException;
 import javax.persistence.PersistenceException;
 import javax.persistence.Query;
 
+import com.eXcelerate.entities.CurrentLoggedInID;
 import com.eXcelerate.entities.Instructor;
 import com.eXcelerate.entities.State;
 import com.eXcelerate.entities.Student;
@@ -12,10 +13,11 @@ import com.eXcelerate.exceptions.NoSuchRecordFoundException;
 import com.eXcelerate.exceptions.SomethingWentWrongException;
 import com.eXcelerate.utils.EMutils;
 
-public class LoginServicesDao implements ILoginServicesDao{
+public class LoginServicesDao implements ILoginServicesDao {
 
 	@Override
-	public Boolean LoginInstructor(String username,String password) throws NoSuchRecordFoundException, SomethingWentWrongException {
+	public Boolean LoginInstructor(String username, String password)
+			throws NoSuchRecordFoundException, SomethingWentWrongException {
 		EntityManager em = null;
 		try {
 			em = EMutils.getEntityManager();
@@ -24,15 +26,19 @@ public class LoginServicesDao implements ILoginServicesDao{
 			qu.setParameter("username", username);
 			qu.setParameter("password", password);
 			qu.setParameter("status", State.ACTIVE);
-			Instructor instructor = (Instructor)qu.getSingleResult();
-		
-			if(instructor!=null)return true;
-		}catch(NoResultException e) {
+			Instructor instructor = (Instructor) qu.getSingleResult();
+
+			if (instructor != null) {
+				CurrentLoggedInID.CurrentLoggedInInstructorsID = instructor.getId();
+				return true;
+			}
+		} catch (NoResultException e) {
 			throw new NoSuchRecordFoundException("wrong username or passowrd");
-		}
-		catch(PersistenceException p) {
+		} catch (PersistenceException p) {
 			p.printStackTrace();
 			throw new SomethingWentWrongException("unable to login please try later");
+		} finally {
+			em.close();
 		}
 		return false;
 	}
@@ -48,17 +54,21 @@ public class LoginServicesDao implements ILoginServicesDao{
 			qu.setParameter("username", username);
 			qu.setParameter("password", password);
 			qu.setParameter("status", State.ACTIVE);
-			Student student = (Student)qu.getSingleResult();
-		
-			if(student!=null)return true;
-		}catch(NoResultException e) {
+			Student student = (Student) qu.getSingleResult();
+
+			if (student != null) {
+				CurrentLoggedInID.CurrentLoggedInStudentID = student.getId();
+				return true;
+			}
+		} catch (NoResultException e) {
 			throw new NoSuchRecordFoundException("wrong username or passowrd");
-		}
-		catch(PersistenceException p) {
+		} catch (PersistenceException p) {
 			p.printStackTrace();
 			throw new SomethingWentWrongException("unable to login please try later");
+		} finally {
+			em.close();
 		}
 		return false;
 	}
-	
+
 }
