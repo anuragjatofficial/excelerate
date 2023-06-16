@@ -18,7 +18,7 @@ public class EMutils {
 	 * This static block is responsible to create object of entityManagerFactory
 	 */
 	static {
-		emf = Persistence.createEntityManagerFactory("eXceleratedb");
+		emf = Persistence.createEntityManagerFactory("exceleratedb");
 	}
 
 	/**
