@@ -17,13 +17,13 @@ public class User {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
-	@Column(unique = true,nullable = false,length = 50)
+	@Column(unique = true, nullable = false, length = 50)
 	private String username;
 	@Column(nullable = false, length = 50)
 	private String password;
 	@Column(nullable = false, length = 50)
 	private String name;
-	@Column(name = "account_status",nullable = false)
+	@Column(name = "account_status", nullable = false)
 	@Enumerated(EnumType.STRING)
 	private State accountStatus;
 
@@ -38,7 +38,7 @@ public class User {
 		this.name = name;
 		this.accountStatus = accountStatus;
 	}
-	
+
 	public int getId() {
 		return id;
 	}
@@ -74,11 +74,10 @@ public class User {
 	public void setAccountStatus(State accountStatus) {
 		this.accountStatus = accountStatus;
 	}
-	
+
 	@Override
 	public String toString() {
-		return "User [id=" + id + ", username=" + username + ", password=" + password + ", name=" + name
-				+ ", accountStatus=" + accountStatus + "]";
+		return "User [id=" + id + ", username=" + username + ", password=" + password + ", name=" + name + "]";
 	}
-	
+
 }

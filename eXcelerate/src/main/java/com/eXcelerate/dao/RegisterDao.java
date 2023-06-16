@@ -49,7 +49,9 @@ public class RegisterDao implements IRegisterDao {
 			// throwing SomethingWentWrongException to hide any problem from user
 			throw new SomethingWentWrongException("unable to register Student please try again later");
 		} finally {
-			em.close();
+			if(em!=null) {
+				em.close();
+			}
 		}
 	}
 

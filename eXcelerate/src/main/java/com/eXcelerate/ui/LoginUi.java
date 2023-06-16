@@ -56,6 +56,7 @@ public class LoginUi {
 		String password = sc.nextLine();
 		ILoginServices iLs = new LoginServices();
 		if (iLs.LoginAdmin(username, password)) {
+			AdminUi.showAdminUi(sc);
 			System.out.println("Login success .. !");
 		} else {
 			System.out.println("wrong username or password");
