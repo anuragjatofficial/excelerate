@@ -16,9 +16,22 @@ public class Student extends User {
 	public Student() {
 		super();
 	}
+	
+	public Set<Course> getCourses() {
+		return courses;
+	}
+
+	public void setCourses(Set<Course> courses) {
+		this.courses = courses;
+	}
 
 	public Student(String username, String password, String name, State accountStatus) {
 		super(username, password, name, accountStatus);
 	}
 
+	@Override
+	public String toString() {
+		return "Student [getId()=" + getId() + ", getUsername()=" + getUsername() + ", getPassword()=" + getPassword()
+				+ ", getName()=" + getName() + "]";
+	}
 }

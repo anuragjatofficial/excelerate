@@ -1,24 +1,34 @@
 package com.eXcelerate.services;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import com.eXcelerate.dao.CourseServicesDao;
 import com.eXcelerate.dao.ICourseServicesDao;
 import com.eXcelerate.entities.Assignment;
+import com.eXcelerate.entities.Course;
+import com.eXcelerate.exceptions.NoAccountLoggedInException;
 import com.eXcelerate.exceptions.NoSuchRecordFoundException;
 import com.eXcelerate.exceptions.SomethingWentWrongException;
 
-public class CourseServices implements ICourseServices{
+public class CourseServices implements ICourseServices {
 
 	@Override
-	public List<String> showCourses() throws NoSuchRecordFoundException, SomethingWentWrongException {
-		ICourseServicesDao iCsDao = new  CourseServicesDao();
-		return iCsDao.showCourses();
+	public List<String> showCourses() throws NoSuchRecordFoundException, SomethingWentWrongException, NoAccountLoggedInException {
+		ICourseServicesDao iCsDao = new CourseServicesDao();
+
+		Set<Course> courses = iCsDao.showCourses();
+		List<String> courselist = new ArrayList<>();
+		for (Course course : courses) {
+			courses.add(course);
+		}
+		return courselist;
 	}
 
 	@Override
-	public List<Assignment> showAssignments() throws NoSuchRecordFoundException, SomethingWentWrongException {
-		ICourseServicesDao iCsDao = new  CourseServicesDao();
+	public List<Assignment> showAssignments() throws NoSuchRecordFoundException, SomethingWentWrongException, NoAccountLoggedInException {
+		ICourseServicesDao iCsDao = new CourseServicesDao();
 		return iCsDao.showAssignments();
 	}
 

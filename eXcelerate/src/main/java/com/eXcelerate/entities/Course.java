@@ -1,6 +1,7 @@
 package com.eXcelerate.entities;
 
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -26,7 +27,9 @@ public class Course {
 	@ElementCollection
 	@Embedded
 	private Set<Quiz> quizzes = new HashSet<>();
-//	private Set<Lectures> lectures = new HashSet<>();	
+	@ElementCollection
+	@Embedded
+	private Set<Lecture> lectures = new HashSet<>();
 	private State courseStatus;
 
 	public Course() {
@@ -83,6 +86,34 @@ public class Course {
 
 	public void setQuizzes(Set<Quiz> quizzes) {
 		this.quizzes = quizzes;
+	}
+
+	public Set<Lecture> getLectures() {
+		return lectures;
+	}
+
+	public void setLectures(Set<Lecture> lectures) {
+		this.lectures = lectures;
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(assignments, courseId, courseName, courseStatus, lectures, quizzes, students);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Course other = (Course) obj;
+		return Objects.equals(assignments, other.assignments) && courseId == other.courseId
+				&& Objects.equals(courseName, other.courseName) && courseStatus == other.courseStatus
+				&& Objects.equals(lectures, other.lectures) && Objects.equals(quizzes, other.quizzes)
+				&& Objects.equals(students, other.students);
 	}
 
 	@Override
