@@ -2,6 +2,7 @@ package com.eXcelerate.ui;
 
 import java.util.Scanner;
 
+import com.eXcelerate.exceptions.NoAccountLoggedInException;
 import com.eXcelerate.exceptions.NoSuchRecordFoundException;
 import com.eXcelerate.exceptions.SomethingWentWrongException;
 import com.eXcelerate.services.CourseServices;
@@ -34,7 +35,7 @@ public class StudentUi {
 			if (iCs.showCourses() != null) {
 				iCs.showCourses().stream().forEach(System.out::println);
 			}
-		} catch (NoSuchRecordFoundException | SomethingWentWrongException e) {
+		} catch (NoSuchRecordFoundException | SomethingWentWrongException | NoAccountLoggedInException e) {
 			System.out.println(e.getMessage());
 		}
 	}
@@ -43,7 +44,7 @@ public class StudentUi {
 		ICourseServices iCs = new CourseServices();
 		try {
 			iCs.showAssignments().stream().forEach(System.out::println);
-		} catch (NoSuchRecordFoundException | SomethingWentWrongException e) {
+		} catch (NoSuchRecordFoundException | SomethingWentWrongException | NoAccountLoggedInException e) {
 			// TODO Auto-generated catch block
 			System.out.println(e.getMessage());
 		}

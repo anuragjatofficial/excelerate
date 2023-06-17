@@ -9,6 +9,7 @@ import javax.persistence.Query;
 
 import com.eXcelerate.entities.Assignment;
 import com.eXcelerate.entities.Course;
+import com.eXcelerate.entities.Lecture;
 import com.eXcelerate.entities.Quiz;
 import com.eXcelerate.entities.State;
 import com.eXcelerate.entities.Student;
@@ -102,6 +103,30 @@ public class DataServicesDao implements IDataServicesDao {
 		} catch (PersistenceException p) {
 			et.rollback();
 			throw new SomethingWentWrongException("oop's can't add quiz please try later ");
+		} finally {
+			em.close();
+		}
+	}
+
+	@Override
+	public void addLecture(int courseId, Lecture lecture)
+			throws SomethingWentWrongException, NoSuchRecordFoundException {
+		EntityManager em = null;
+		EntityTransaction et = null;
+		try {
+			em = EMutils.getEntityManager();
+			et = em.getTransaction();
+			Course course = em.find(Course.class, courseId);
+			if (course == null) {
+				throw new NoSuchRecordFoundException("can't find any course with id " + courseId);
+			}
+			et.begin();
+			em.merge(course);
+			course.getLectures().add(lecture);
+			et.commit();
+		} catch (PersistenceException p) {
+			et.rollback();
+			throw new SomethingWentWrongException("oop's can't add lecture please try later ");
 		} finally {
 			em.close();
 		}

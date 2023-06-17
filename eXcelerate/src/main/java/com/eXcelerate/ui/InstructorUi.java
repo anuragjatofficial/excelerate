@@ -6,6 +6,7 @@ import java.util.Scanner;
 
 import com.eXcelerate.entities.Assignment;
 import com.eXcelerate.entities.Course;
+import com.eXcelerate.entities.Lecture;
 import com.eXcelerate.entities.Quiz;
 import com.eXcelerate.entities.State;
 import com.eXcelerate.entities.Status;
@@ -32,8 +33,43 @@ public class InstructorUi {
 			case 2 -> showStudents();
 			case 3 -> addAssignment(sc);
 			case 4 -> addQuiz(sc);
+			case 5 -> addLecture(sc);
 			}
 		} while (choice != 0);
+	}
+
+	private static void addLecture(Scanner sc) {
+		System.out.print("Enter Couse Id : ");
+		int courseId = sc.nextInt();
+		
+		System.out.print("Enter Lecture Title : ");
+		sc.nextLine();
+		String title = sc.nextLine();
+		
+		System.out.print("Enter description of assignment : ");
+		String desc = sc.nextLine();
+		
+		System.out.println("Enter URL of lecture (zoom or meet link) : ");
+		String url = sc.nextLine();
+		
+		Lecture lecture = new Lecture(
+					IdGeneration.generateID(),
+					title,
+					desc,
+					Status.PENDING,
+					LocalDate.now(),
+					url,
+					State.ACTIVE
+				);
+		
+		IDataServices iDs = new DataServices();
+		try {
+			iDs.addLecture(courseId,lecture);
+			System.out.println("Lecture posted Successfully..!");
+		} catch (SomethingWentWrongException | NoSuchRecordFoundException e) {
+			System.out.println(e.getMessage());
+		}
+
 	}
 
 	private static void addAssignment(Scanner sc) {
@@ -132,8 +168,8 @@ public class InstructorUi {
 
 	}
 
-	public static void main(String[] args) {
-		Scanner sc = new Scanner(System.in);
-		addQuiz(sc);
-	}
+//	public static void main(String[] args) {
+//		Scanner sc = new Scanner(System.in);
+//		addLecture(sc);
+//	}
 }
