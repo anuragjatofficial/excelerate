@@ -8,6 +8,8 @@ import javax.persistence.CascadeType;
 import javax.persistence.ElementCollection;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -30,6 +32,7 @@ public class Course {
 	@ElementCollection
 	@Embedded
 	private Set<Lecture> lectures = new HashSet<>();
+	@Enumerated(EnumType.STRING)
 	private State courseStatus;
 
 	public Course() {

@@ -10,6 +10,7 @@ import javax.persistence.PersistenceException;
 import com.eXcelerate.entities.Assignment;
 import com.eXcelerate.entities.Course;
 import com.eXcelerate.entities.CurrentLoggedInID;
+import com.eXcelerate.entities.Quiz;
 import com.eXcelerate.entities.Student;
 import com.eXcelerate.exceptions.NoAccountLoggedInException;
 import com.eXcelerate.exceptions.NoSuchRecordFoundException;
@@ -65,6 +66,29 @@ public class CourseServicesDao implements ICourseServicesDao {
 				throw new NoSuchRecordFoundException("you have not given any assignments so far");
 			}
 			return assignments;
+		} catch (PersistenceException p) {
+			throw new SomethingWentWrongException("oop's a problem occured , please try again later");
+		} finally {
+			if (em != null) {
+				em.close();
+			}
+		}
+	}
+
+	@Override
+	public List<Quiz> showQuizzes()
+			throws NoSuchRecordFoundException, SomethingWentWrongException, NoAccountLoggedInException {
+		EntityManager em = null;
+		try {
+			Set<Course> courses = showCourses();
+			List<Quiz> quizzes = new ArrayList<>();
+			for(Course course: courses) {
+				quizzes.addAll(course.getQuizzes());
+			}
+			if(quizzes.isEmpty()) {
+				throw new NoSuchRecordFoundException("you have not given any quiz so far");
+			}
+			return quizzes;
 		} catch (PersistenceException p) {
 			throw new SomethingWentWrongException("oop's a problem occured , please try again later");
 		} finally {

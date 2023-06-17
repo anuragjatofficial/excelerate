@@ -19,12 +19,15 @@ public class StudentUi {
 			System.out.println("Press 5. Update assignment status");
 			System.out.println("Press 6. Update Quiz status");
 			System.out.println("Press 7. Update Lecture as watched");
+			System.out.println("Press 0. Exit");
 			System.out.println("");
 			System.out.println("Enter your choice : ");
 			choice = sc.nextInt();
 			switch (choice) {
 			case 1 -> showCourses(sc);
 			case 2 -> showAssignemnts(sc);
+			case 3 -> showQuizzes(sc);
+			case 0 -> choice = 0;
 			}
 		} while (choice != 0);
 	}
@@ -32,7 +35,7 @@ public class StudentUi {
 	public static void showCourses(Scanner sc) {
 		ICourseServices iCs = new CourseServices();
 		try {
-			if (iCs.showCourses() != null) {
+			if (!iCs.showCourses().isEmpty()) {
 				iCs.showCourses().stream().forEach(System.out::println);
 			}
 		} catch (NoSuchRecordFoundException | SomethingWentWrongException | NoAccountLoggedInException e) {
@@ -45,8 +48,19 @@ public class StudentUi {
 		try {
 			iCs.showAssignments().stream().forEach(System.out::println);
 		} catch (NoSuchRecordFoundException | SomethingWentWrongException | NoAccountLoggedInException e) {
-			// TODO Auto-generated catch block
 			System.out.println(e.getMessage());
 		}
 	}
+	
+	public static void showQuizzes(Scanner sc) {
+		ICourseServices iCs = new CourseServices();
+		try {
+			iCs.showQuizzes().stream().forEach(System.out::println);
+		} catch (NoSuchRecordFoundException | SomethingWentWrongException | NoAccountLoggedInException e) {
+			System.out.println(e.getMessage());
+		}
+	}
+//	public static void main(String[] args) {
+//		showCourses(Scanner sc);
+//	}
 }

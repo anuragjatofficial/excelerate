@@ -20,4 +20,16 @@ public class AdminServices implements IAdminServices {
 		iAd.assignCoureToStudent(courseIDs,studentId);
 	}
 
+	@Override
+	public void deleteCourseById(int courseId) throws SomethingWentWrongException, NoSuchRecordFoundException {
+		IAdminServicesDao iAd = new AdminServicesDao();
+		iAd.deleteCourseById(courseId);
+	}
+
+	@Override
+	public void deleteStudentById(int studentId) throws SomethingWentWrongException, NoSuchRecordFoundException {
+		IAdminServicesDao iAd = new AdminServicesDao();
+		iAd.deleteStudentById(studentId);
+	}
+
 }

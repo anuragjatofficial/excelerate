@@ -26,6 +26,7 @@ public class InstructorUi {
 			System.out.println("Press 3. Add new Assignment ");
 			System.out.println("Press 4. Add new Quiz ");
 			System.out.println("Press 5. Post new lecture");
+			System.out.println("Press 0. Exit");
 			System.out.print("Enter your choice : ");
 			choice = sc.nextInt();
 			switch (choice) {
@@ -34,6 +35,7 @@ public class InstructorUi {
 			case 3 -> addAssignment(sc);
 			case 4 -> addQuiz(sc);
 			case 5 -> addLecture(sc);
+			case 0 -> choice = 0;
 			}
 		} while (choice != 0);
 	}
