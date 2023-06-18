@@ -88,7 +88,14 @@ public class Assignment {
 		this.endAt = endAt;
 	}
 
-	
+
+	public State getIs_deleted() {
+		return is_deleted;
+	}
+
+	public void setIs_deleted(State is_deleted) {
+		this.is_deleted = is_deleted;
+	}
 
 	@Override
 	public int hashCode() {

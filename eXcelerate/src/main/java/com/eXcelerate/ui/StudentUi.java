@@ -2,6 +2,7 @@ package com.eXcelerate.ui;
 
 import java.util.Scanner;
 
+import com.eXcelerate.exceptions.AlreadyUpdatedException;
 import com.eXcelerate.exceptions.NoAccountLoggedInException;
 import com.eXcelerate.exceptions.NoSuchRecordFoundException;
 import com.eXcelerate.exceptions.SomethingWentWrongException;
@@ -27,9 +28,59 @@ public class StudentUi {
 			case 1 -> showCourses(sc);
 			case 2 -> showAssignemnts(sc);
 			case 3 -> showQuizzes(sc);
+			case 4 -> showLectures(sc);
+			case 5 -> updateAssignmentStatus(sc);
+			case 6 -> updateQuizStatus(sc);
+			case 7 -> updateLectureStatus(sc);
 			case 0 -> choice = 0;
 			}
 		} while (choice != 0);
+	}
+
+	private static void updateLectureStatus(Scanner sc) {
+		System.out.print("Enter course Id : ");
+		int courseID = sc.nextInt();
+		System.out.print("Enter Lecture ID : ");
+		int lectureID = sc.nextInt();
+		ICourseServices iCs = new CourseServices();
+		try {
+			iCs.updateLectureStatus(courseID, lectureID);
+			System.out.println("Lecture status updated successfully .. !");
+		} catch (NoSuchRecordFoundException | SomethingWentWrongException | NoAccountLoggedInException | AlreadyUpdatedException e) {
+			System.out.println(e.getMessage());
+		}
+	}
+
+	private static void updateQuizStatus(Scanner sc) {
+		System.out.print("Enter course Id : ");
+		int courseID = sc.nextInt();
+		System.out.print("Enter Quiz ID : ");
+		int quizID = sc.nextInt();
+		System.out.print("1. Mark as pending , 2. Mark as completed (1/2) : ");
+		int status = sc.nextInt();
+		ICourseServices iCs = new CourseServices();
+		try {
+			iCs.updateQuizStatus(courseID, quizID, status);
+			System.out.println("Quiz status updated successfully .. !");
+		} catch (NoSuchRecordFoundException | SomethingWentWrongException | NoAccountLoggedInException | AlreadyUpdatedException e) {
+			System.out.println(e.getMessage());
+		}
+	}
+
+	private static void updateAssignmentStatus(Scanner sc) {
+		System.out.print("Enter Course Id : ");
+		int courseID = sc.nextInt();
+		System.out.print("Enter Assignment ID : ");
+		int assignmentID = sc.nextInt();
+		System.out.print("1. Mark as pending , 2. Mark as completed (1/2) : ");
+		int status = sc.nextInt();
+		ICourseServices iCs = new CourseServices();
+		try {
+			iCs.updateAssignmentStatus(courseID, assignmentID, status);
+			System.out.println("Assignment status updated successfully .. !");
+		} catch (NoSuchRecordFoundException | SomethingWentWrongException | NoAccountLoggedInException | AlreadyUpdatedException e) {
+			System.out.println(e.getMessage());
+		}
 	}
 
 	public static void showCourses(Scanner sc) {
@@ -51,7 +102,7 @@ public class StudentUi {
 			System.out.println(e.getMessage());
 		}
 	}
-	
+
 	public static void showQuizzes(Scanner sc) {
 		ICourseServices iCs = new CourseServices();
 		try {
@@ -60,6 +111,16 @@ public class StudentUi {
 			System.out.println(e.getMessage());
 		}
 	}
+
+	public static void showLectures(Scanner sc) {
+		ICourseServices iCs = new CourseServices();
+		try {
+			iCs.showLectures().stream().forEach(System.out::println);
+		} catch (NoSuchRecordFoundException | SomethingWentWrongException | NoAccountLoggedInException e) {
+			System.out.println(e.getMessage());
+		}
+	}
+
 //	public static void main(String[] args) {
 //		showCourses(Scanner sc);
 //	}
