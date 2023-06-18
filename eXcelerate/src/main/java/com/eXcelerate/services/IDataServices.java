@@ -1,6 +1,8 @@
 package com.eXcelerate.services;
 
+import java.util.Collection;
 import java.util.List;
+import java.util.Set;
 
 import com.eXcelerate.entities.Assignment;
 import com.eXcelerate.entities.Course;
@@ -15,9 +17,16 @@ public interface IDataServices {
 
 	List<Course> showCourses() throws SomethingWentWrongException, NoSuchRecordFoundException;
 
-	void addAssignment(int courseId, Assignment assignment)throws SomethingWentWrongException, NoSuchRecordFoundException;
+	void addAssignment(int courseId, Assignment assignment)
+			throws SomethingWentWrongException, NoSuchRecordFoundException;
 
-	void addQuiz(int courseId, Quiz quiz)throws SomethingWentWrongException, NoSuchRecordFoundException;
+	void addQuiz(int courseId, Quiz quiz) throws SomethingWentWrongException, NoSuchRecordFoundException;
 
-	void addLecture(int courseId, Lecture lecture)throws SomethingWentWrongException, NoSuchRecordFoundException;;
+	void addLecture(int courseId, Lecture lecture) throws SomethingWentWrongException, NoSuchRecordFoundException;
+
+	Set<Lecture> seeAllLecturesByCourseID(int courseID) throws SomethingWentWrongException, NoSuchRecordFoundException;
+
+	Set<Assignment> seeAllAssignmentsByCourseID(int courseID)throws SomethingWentWrongException, NoSuchRecordFoundException;
+
+	Set<Quiz> seeAllQuizzesByCourseID(int courseID)throws SomethingWentWrongException, NoSuchRecordFoundException;
 }

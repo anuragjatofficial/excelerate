@@ -1,6 +1,8 @@
 package com.eXcelerate.dao;
 
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collector;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
@@ -127,6 +129,60 @@ public class DataServicesDao implements IDataServicesDao {
 		} catch (PersistenceException p) {
 			et.rollback();
 			throw new SomethingWentWrongException("oop's can't add lecture please try later ");
+		} finally {
+			em.close();
+		}
+	}
+
+	@Override
+	public Set<Lecture> seeAllLecturesByCourseID(int courseID)
+			throws SomethingWentWrongException, NoSuchRecordFoundException {
+		EntityManager em = null;
+		try {
+			em = EMutils.getEntityManager();
+			Course course = em.find(Course.class, courseID);
+			if(course == null) {
+				throw new NoSuchRecordFoundException("Can't find any course with id "+courseID);
+			}
+			return course.getLectures();
+		} catch (PersistenceException p) {
+			throw new SomethingWentWrongException("oop's something went wrong please try later");
+		} finally {
+			em.close();
+		}
+	}
+
+	@Override
+	public Set<Assignment> seeAllAssignmentsByCourseID(int courseID)
+			throws SomethingWentWrongException, NoSuchRecordFoundException {
+		EntityManager em = null;
+		try {
+			em = EMutils.getEntityManager();
+			Course course = em.find(Course.class, courseID);
+			if(course == null) {
+				throw new NoSuchRecordFoundException("Can't find any course with id "+courseID);
+			}
+			return course.getAssignments();
+		} catch (PersistenceException p) {
+			throw new SomethingWentWrongException("oop's something went wrong please try later");
+		} finally {
+			em.close();
+		}
+	}
+
+	@Override
+	public Set<Quiz> seeAllQuizzesByCourseID(int courseID)
+			throws SomethingWentWrongException, NoSuchRecordFoundException {
+		EntityManager em = null;
+		try {
+			em = EMutils.getEntityManager();
+			Course course = em.find(Course.class, courseID);
+			if(course == null) {
+				throw new NoSuchRecordFoundException("Can't find any course with id "+courseID);
+			}
+			return course.getQuizzes();
+		} catch (PersistenceException p) {
+			throw new SomethingWentWrongException("oop's something went wrong please try later");
 		} finally {
 			em.close();
 		}

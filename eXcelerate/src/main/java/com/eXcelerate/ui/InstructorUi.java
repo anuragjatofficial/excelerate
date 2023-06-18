@@ -26,6 +26,9 @@ public class InstructorUi {
 			System.out.println("Press 3. Add new Assignment ");
 			System.out.println("Press 4. Add new Quiz ");
 			System.out.println("Press 5. Post new lecture");
+			System.out.println("Press 6. See all lectures by course ID ");
+			System.out.println("Press 7. See all assignments by course ID");
+			System.out.println("Press 8. See all quizzes by course ID ");
 			System.out.println("Press 0. Exit");
 			System.out.print("Enter your choice : ");
 			choice = sc.nextInt();
@@ -35,9 +38,45 @@ public class InstructorUi {
 			case 3 -> addAssignment(sc);
 			case 4 -> addQuiz(sc);
 			case 5 -> addLecture(sc);
+			case 6 -> seeAllLecturesByCourseID(sc);
+			case 7 -> seeAllAssignmentsByCourseID(sc);
+			case 8 -> seeAllQuizzesByCourseID(sc);
 			case 0 -> choice = 0;
 			}
 		} while (choice != 0);
+	}
+
+	private static void seeAllQuizzesByCourseID(Scanner sc) {
+		System.out.print("Enter course ID : ");
+		int courseID = sc.nextInt();
+		IDataServices iDs = new DataServices();
+		try {
+			iDs.seeAllQuizzesByCourseID(courseID).stream().forEach(System.out::println);
+		} catch (SomethingWentWrongException | NoSuchRecordFoundException e) {
+			System.out.println(e.getMessage());
+		}
+	}
+
+	private static void seeAllAssignmentsByCourseID(Scanner sc) {
+		System.out.print("Enter course ID : ");
+		int courseID = sc.nextInt();
+		IDataServices iDs = new DataServices();
+		try {
+			iDs.seeAllAssignmentsByCourseID(courseID).stream().forEach(System.out::println);
+		} catch (SomethingWentWrongException | NoSuchRecordFoundException e) {
+			System.out.println(e.getMessage());
+		}
+	}
+
+	private static void seeAllLecturesByCourseID(Scanner sc) {
+		System.out.print("Enter course ID : ");
+		int courseID = sc.nextInt();
+		IDataServices iDs = new DataServices();
+		try {
+			iDs.seeAllLecturesByCourseID(courseID).stream().forEach(System.out::println);
+		} catch (SomethingWentWrongException | NoSuchRecordFoundException e) {
+			System.out.println(e.getMessage());
+		}
 	}
 
 	private static void addLecture(Scanner sc) {

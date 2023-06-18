@@ -18,16 +18,16 @@ import com.eXcelerate.exceptions.SomethingWentWrongException;
 public class CourseServices implements ICourseServices {
 
 	@Override
-	public List<String> showCourses()
+	public Set<Course> showCourses()
 			throws NoSuchRecordFoundException, SomethingWentWrongException, NoAccountLoggedInException {
 		ICourseServicesDao iCsDao = new CourseServicesDao();
 
 		Set<Course> courses = iCsDao.showCourses();
-		List<String> courselist = new ArrayList<>();
-		for (Course course : courses) {
-			courselist.add(course.getCourseName());
-		}
-		return courselist;
+//		List<String> courselist = new ArrayList<>();
+//		for (Course course : courses) {
+//			courselist.add(course.getCourseName());
+//		}
+		return courses;
 	}
 
 	@Override
