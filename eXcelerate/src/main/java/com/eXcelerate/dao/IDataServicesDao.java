@@ -15,18 +15,28 @@ public interface IDataServicesDao {
 
 	List<Student> showStudents() throws SomethingWentWrongException, NoSuchRecordFoundException;
 
-	List<Course> showCourses()throws SomethingWentWrongException, NoSuchRecordFoundException;
-	
-	void addAssignment(int courseId, Assignment assignment)throws SomethingWentWrongException, NoSuchRecordFoundException;
+	List<Course> showCourses() throws SomethingWentWrongException, NoSuchRecordFoundException;
 
-	void addQuiz(int courseId, Quiz quiz)throws SomethingWentWrongException, NoSuchRecordFoundException;
+	void addAssignment(int courseId, Assignment assignment)
+			throws SomethingWentWrongException, NoSuchRecordFoundException;
 
-	void addLecture(int courseId, Lecture lecture)throws SomethingWentWrongException, NoSuchRecordFoundException;
+	void addQuiz(int courseId, Quiz quiz) throws SomethingWentWrongException, NoSuchRecordFoundException;
 
-	Set<Lecture> seeAllLecturesByCourseID(int courseID)throws SomethingWentWrongException, NoSuchRecordFoundException;
+	void addLecture(int courseId, Lecture lecture) throws SomethingWentWrongException, NoSuchRecordFoundException;
 
-	Set<Assignment> seeAllAssignmentsByCourseID(int courseID)throws SomethingWentWrongException, NoSuchRecordFoundException;
+	Set<Lecture> seeAllLecturesByCourseID(int courseID) throws SomethingWentWrongException, NoSuchRecordFoundException;
 
-	Set<Quiz> seeAllQuizzesByCourseID(int courseID)throws SomethingWentWrongException, NoSuchRecordFoundException;
+	Set<Assignment> seeAllAssignmentsByCourseID(int courseID)
+			throws SomethingWentWrongException, NoSuchRecordFoundException;
+
+	Set<Quiz> seeAllQuizzesByCourseID(int courseID) throws SomethingWentWrongException, NoSuchRecordFoundException;
+
+	void deleteLectureByLectureID(int courseID, int lectureID)
+			throws SomethingWentWrongException, NoSuchRecordFoundException;
+
+	void deleteAssignmentByAssignmentID(int courseID, int assignmentID)
+			throws SomethingWentWrongException, NoSuchRecordFoundException;
+
+	void deleteQuizByQuizID(int courseID, int QuizID) throws NoSuchRecordFoundException, SomethingWentWrongException;
 
 }

@@ -41,9 +41,51 @@ public class InstructorUi {
 			case 6 -> seeAllLecturesByCourseID(sc);
 			case 7 -> seeAllAssignmentsByCourseID(sc);
 			case 8 -> seeAllQuizzesByCourseID(sc);
+			case 9 -> deleteLectureByLectureID(sc);
+			case 10 -> deleteAssignmentByAssignmentID(sc);
+			case 11 -> deleteQuizByQuizID(sc);
 			case 0 -> choice = 0;
 			}
 		} while (choice != 0);
+	}
+
+	private static void deleteQuizByQuizID(Scanner sc) {
+		System.out.print("Enter Course ID : ");
+		int courseID = sc.nextInt();
+		System.out.print("Enter quiz ID : ");
+		int quizID = sc.nextInt();
+		IDataServices iDs = new DataServices();
+		try {
+			iDs.deleteQuizByQuizID(courseID,quizID);
+		} catch (SomethingWentWrongException | NoSuchRecordFoundException e) {
+			System.out.println(e.getMessage());
+		}
+	}
+
+	private static void deleteAssignmentByAssignmentID(Scanner sc) {
+		System.out.print("Enter Course ID : ");
+		int courseID = sc.nextInt();
+		System.out.print("Enter assignment ID : ");
+		int assignmentID = sc.nextInt();
+		IDataServices iDs = new DataServices();
+		try {
+			iDs.deleteAssignmentByAssignmentID(courseID,assignmentID);
+		} catch (SomethingWentWrongException | NoSuchRecordFoundException e) {
+			System.out.println(e.getMessage());
+		}
+	}
+
+	private static void deleteLectureByLectureID(Scanner sc) {
+		System.out.print("Enter Course ID : ");
+		int courseID = sc.nextInt();
+		System.out.print("Enter Lecture ID : ");
+		int lectureID = sc.nextInt();
+		IDataServices iDs = new DataServices();
+		try {
+			iDs.deleteLectureByLectureID(courseID,lectureID);
+		} catch (SomethingWentWrongException | NoSuchRecordFoundException e) {
+			System.out.println(e.getMessage());
+		}
 	}
 
 	private static void seeAllQuizzesByCourseID(Scanner sc) {
@@ -82,30 +124,23 @@ public class InstructorUi {
 	private static void addLecture(Scanner sc) {
 		System.out.print("Enter Couse Id : ");
 		int courseId = sc.nextInt();
-		
+
 		System.out.print("Enter Lecture Title : ");
 		sc.nextLine();
 		String title = sc.nextLine();
-		
+
 		System.out.print("Enter description of assignment : ");
 		String desc = sc.nextLine();
-		
+
 		System.out.println("Enter URL of lecture (zoom or meet link) : ");
 		String url = sc.nextLine();
-		
-		Lecture lecture = new Lecture(
-					IdGeneration.generateID(),
-					title,
-					desc,
-					Status.PENDING,
-					LocalDate.now(),
-					url,
-					State.ACTIVE
-				);
-		
+
+		Lecture lecture = new Lecture(IdGeneration.generateID(), title, desc, Status.PENDING, LocalDate.now(), url,
+				State.ACTIVE);
+
 		IDataServices iDs = new DataServices();
 		try {
-			iDs.addLecture(courseId,lecture);
+			iDs.addLecture(courseId, lecture);
 			System.out.println("Lecture posted Successfully..!");
 		} catch (SomethingWentWrongException | NoSuchRecordFoundException e) {
 			System.out.println(e.getMessage());
@@ -116,30 +151,23 @@ public class InstructorUi {
 	private static void addAssignment(Scanner sc) {
 		System.out.print("Enter Couse Id : ");
 		int courseId = sc.nextInt();
-		
+
 		System.out.print("Enter Assignment Title : ");
 		sc.nextLine();
 		String title = sc.nextLine();
-		
+
 		System.out.print("Enter description of assignment : ");
 		String desc = sc.nextLine();
-		
+
 		System.out.print("Enter deadLine of assignment (in YYYY-MM-DD format) : ");
 		LocalDate deadLine = LocalDate.parse(sc.next());
-		
-		Assignment assignment = new Assignment(
-					IdGeneration.generateID(),
-					title,
-					desc,
-					Status.PENDING,
-					LocalDate.now(),
-					deadLine,
-					State.ACTIVE
-				);
-		
+
+		Assignment assignment = new Assignment(IdGeneration.generateID(), title, desc, Status.PENDING, LocalDate.now(),
+				deadLine, State.ACTIVE);
+
 		IDataServices iDs = new DataServices();
 		try {
-			iDs.addAssignment(courseId,assignment);
+			iDs.addAssignment(courseId, assignment);
 			System.out.println("Assignment added Successfully..!");
 		} catch (SomethingWentWrongException | NoSuchRecordFoundException e) {
 			System.out.println(e.getMessage());
@@ -174,34 +202,27 @@ public class InstructorUi {
 			System.out.println(e.getMessage());
 		}
 	}
-	
+
 	private static void addQuiz(Scanner sc) {
 		System.out.print("Enter Couse Id : ");
 		int courseId = sc.nextInt();
-		
+
 		System.out.print("Enter Quiz Title : ");
 		sc.nextLine();
 		String title = sc.nextLine();
-		
+
 		System.out.print("Enter details of Quiz : ");
 		String desc = sc.nextLine();
-		
+
 		System.out.print("Enter deadLine of Quiz (in YYYY-MM-DD format) : ");
 		LocalDate deadLine = LocalDate.parse(sc.next());
-		
-		Quiz quiz = new Quiz(
-					IdGeneration.generateID(),
-					title,
-					desc,
-					Status.PENDING,
-					LocalDate.now(),
-					deadLine,
-					State.ACTIVE
-				);
-		
+
+		Quiz quiz = new Quiz(IdGeneration.generateID(), title, desc, Status.PENDING, LocalDate.now(), deadLine,
+				State.ACTIVE);
+
 		IDataServices iDs = new DataServices();
 		try {
-			iDs.addQuiz(courseId,quiz);
+			iDs.addQuiz(courseId, quiz);
 			System.out.println("Quiz added Successfully..!");
 		} catch (SomethingWentWrongException | NoSuchRecordFoundException e) {
 			System.out.println(e.getMessage());
@@ -209,6 +230,7 @@ public class InstructorUi {
 
 	}
 
+	// Driver code for test purpose
 //	public static void main(String[] args) {
 //		Scanner sc = new Scanner(System.in);
 //		addLecture(sc);
