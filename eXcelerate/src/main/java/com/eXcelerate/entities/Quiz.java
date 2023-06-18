@@ -85,6 +85,14 @@ public class Quiz {
 		this.endAt = endAt;
 	}
 
+	public State getIs_deleted() {
+		return is_deleted;
+	}
+
+	public void setIs_deleted(State is_deleted) {
+		this.is_deleted = is_deleted;
+	}
+
 	@Override
 	public String toString() {
 		return "Quiz [Quiz Id : " + quizId + ", title=" + title + ", details=" + details + ", status : " + isCompleted
