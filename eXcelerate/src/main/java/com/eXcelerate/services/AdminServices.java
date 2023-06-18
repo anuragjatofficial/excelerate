@@ -1,5 +1,8 @@
 package com.eXcelerate.services;
 
+import java.util.Map;
+import java.util.Scanner;
+
 import com.eXcelerate.dao.AdminServicesDao;
 import com.eXcelerate.dao.IAdminServicesDao;
 import com.eXcelerate.entities.Course;
@@ -30,6 +33,18 @@ public class AdminServices implements IAdminServices {
 	public void deleteStudentById(int studentId) throws SomethingWentWrongException, NoSuchRecordFoundException {
 		IAdminServicesDao iAd = new AdminServicesDao();
 		iAd.deleteStudentById(studentId);
+	}
+
+	@Override
+	public void deleteInstructorById(int instrucorID) throws SomethingWentWrongException, NoSuchRecordFoundException {
+		IAdminServicesDao iAd = new AdminServicesDao();
+		iAd.deleteInstructorById(instrucorID);
+	}
+
+	@Override
+	public Map<String, Double> showStats(int courseID) throws SomethingWentWrongException, NoSuchRecordFoundException {
+		IAdminServicesDao iAd = new AdminServicesDao();
+		return iAd.showStats(courseID);
 	}
 
 }

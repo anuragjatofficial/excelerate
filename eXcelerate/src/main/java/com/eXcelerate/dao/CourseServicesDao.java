@@ -1,5 +1,6 @@
 package com.eXcelerate.dao;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
@@ -62,6 +63,7 @@ public class CourseServicesDao implements ICourseServicesDao {
 			throws NoSuchRecordFoundException, SomethingWentWrongException, NoAccountLoggedInException {
 		EntityManager em = null;
 		try {
+			em = EMutils.getEntityManager();
 			Student student = em.find(Student.class, CurrentLoggedInID.CurrentLoggedInStudentID);
 			if (student == null) {
 				throw new NoAccountLoggedInException("oops you forgot to login : ) ");
@@ -132,7 +134,7 @@ public class CourseServicesDao implements ICourseServicesDao {
 	}
 
 	@Override
-	public void updateAssignmentStatus(int courseID, int assignmentID, int status) throws NoSuchRecordFoundException,
+	public Boolean updateAssignmentStatus(int courseID, int assignmentID, int status) throws NoSuchRecordFoundException,
 			SomethingWentWrongException, NoAccountLoggedInException, AlreadyUpdatedException {
 		EntityManager em = null;
 		EntityTransaction et = null;
@@ -148,6 +150,9 @@ public class CourseServicesDao implements ICourseServicesDao {
 			course = em.merge(course);
 			Set<Assignment> assignments = course.getAssignments();
 
+			// to check late submission
+			Boolean late = false;
+
 			// code for deletion validation
 
 			Assignment assignment = assignments.stream().filter(a -> a.getAssignmentID() == assignmentID).findAny()
@@ -159,6 +164,10 @@ public class CourseServicesDao implements ICourseServicesDao {
 				throw new NoSuchRecordFoundException("can't find any assignment with id " + assignmentID);
 			}
 
+			int comp = LocalDate.now().compareTo(assignment.getEndAt());
+			if (comp > 0) {
+				late = true;
+			}
 			// for throwing exceptions in repeat updating case
 
 			if (assignment.getIsCompleted() == Status.COMPLETED && status == 2) {
@@ -175,6 +184,7 @@ public class CourseServicesDao implements ICourseServicesDao {
 				}
 			});
 			et.commit();
+			return late;
 		} catch (PersistenceException p) {
 			et.rollback();
 			throw new SomethingWentWrongException("oop's a problem occured , please try again later");
@@ -186,7 +196,7 @@ public class CourseServicesDao implements ICourseServicesDao {
 	}
 
 	@Override
-	public void updateQuizStatus(int courseID, int quizID, int status) throws NoSuchRecordFoundException,
+	public Boolean updateQuizStatus(int courseID, int quizID, int status) throws NoSuchRecordFoundException,
 			SomethingWentWrongException, NoAccountLoggedInException, AlreadyUpdatedException {
 		EntityManager em = null;
 		EntityTransaction et = null;
@@ -201,6 +211,8 @@ public class CourseServicesDao implements ICourseServicesDao {
 			et.begin();
 			course = em.merge(course);
 
+			// to check late submission
+			Boolean late = false;
 			// code for validation
 
 			Set<Quiz> quizzes = course.getQuizzes();
@@ -212,9 +224,10 @@ public class CourseServicesDao implements ICourseServicesDao {
 			if (quiz == null || quiz.getIs_deleted() == State.DELETED) {
 				throw new NoSuchRecordFoundException("can't find any quiz with id " + quizID);
 			}
-
-			// to check if quiz is already updated with same status
-
+			int comp = LocalDate.now().compareTo(quiz.getEndAt());
+			if (comp > 0) {
+				late = true;
+			}
 			if (quiz.getIsCompleted() == Status.COMPLETED && status == 2) {
 				throw new AlreadyUpdatedException("Quiz is already marked as completed ");
 			} else if (quiz.getIsCompleted() == Status.PENDING && status == 1) {
@@ -229,6 +242,7 @@ public class CourseServicesDao implements ICourseServicesDao {
 				}
 			});
 			et.commit();
+			return late;
 		} catch (PersistenceException p) {
 			et.rollback();
 			throw new SomethingWentWrongException("oop's a problem occured , please try again later");
@@ -267,7 +281,7 @@ public class CourseServicesDao implements ICourseServicesDao {
 				throw new NoSuchRecordFoundException("can't find any lecture with id " + lectureID);
 			}
 
-			// to check if lecture is already watched 
+			// to check if lecture is already watched
 
 			if (lecture.getIsWatched() == Status.COMPLETED) {
 				throw new AlreadyUpdatedException("Lecture is already wathced ");

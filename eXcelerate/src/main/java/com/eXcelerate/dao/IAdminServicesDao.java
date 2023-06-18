@@ -1,5 +1,7 @@
 package com.eXcelerate.dao;
 
+import java.util.Map;
+
 import com.eXcelerate.entities.Course;
 import com.eXcelerate.entities.Instructor;
 import com.eXcelerate.entities.Student;
@@ -21,5 +23,9 @@ public interface IAdminServicesDao {
 	void deleteStudentById(int studentId)throws NoSuchRecordFoundException, SomethingWentWrongException;
 
 	Instructor findInstructorById(int instructorId) throws NoSuchRecordFoundException;
+
+	void deleteInstructorById(int instrucorID)throws NoSuchRecordFoundException, SomethingWentWrongException;
+
+	Map<String, Double> showStats(int courseID)throws NoSuchRecordFoundException, SomethingWentWrongException;
 
 }

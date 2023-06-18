@@ -22,7 +22,6 @@ public class RegisterUi {
 		System.out.print("Enter password : ");
 		instructor.setPassword(sc.next());
 		instructor.setAccountStatus(State.ACTIVE);
-		System.out.println(instructor);
 		IRegisterServices iLs = new RegisterServices();
 		try {
 			System.out.println(iLs.registerInstructor((Instructor) instructor));

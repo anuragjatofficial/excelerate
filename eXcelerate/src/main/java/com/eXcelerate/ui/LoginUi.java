@@ -34,7 +34,6 @@ public class LoginUi {
 		String username = sc.nextLine().trim();
 		System.out.print("Enter password : ");
 		String password = sc.nextLine();
-		System.out.println(username + password);
 		ILoginServices iLs = new LoginServices();
 		try {
 			if (iLs.LoginStudent(username, password)) {

@@ -24,10 +24,10 @@ public interface ICourseServicesDao {
 	List<Lecture> showLectures()
 			throws NoSuchRecordFoundException, SomethingWentWrongException, NoAccountLoggedInException;
 
-	void updateAssignmentStatus(int courseID, int assignmentID, int status)
+	Boolean updateAssignmentStatus(int courseID, int assignmentID, int status)
 			throws NoSuchRecordFoundException, SomethingWentWrongException, NoAccountLoggedInException, AlreadyUpdatedException;
 
-	void updateQuizStatus(int courseID, int quizID, int status)
+	Boolean updateQuizStatus(int courseID, int quizID, int status)
 			throws NoSuchRecordFoundException, SomethingWentWrongException, NoAccountLoggedInException, AlreadyUpdatedException;
 
 	void updateLectureStatus(int courseID, int lectureID)

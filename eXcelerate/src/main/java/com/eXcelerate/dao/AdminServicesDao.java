@@ -1,12 +1,22 @@
 package com.eXcelerate.dao;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+import java.util.stream.Collectors;
+
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 import javax.persistence.PersistenceException;
 
+import com.eXcelerate.entities.Assignment;
 import com.eXcelerate.entities.Course;
 import com.eXcelerate.entities.Instructor;
+import com.eXcelerate.entities.Lecture;
+import com.eXcelerate.entities.Quiz;
 import com.eXcelerate.entities.State;
+import com.eXcelerate.entities.Status;
 import com.eXcelerate.entities.Student;
 import com.eXcelerate.exceptions.NoSuchRecordFoundException;
 import com.eXcelerate.exceptions.SomethingWentWrongException;
@@ -130,6 +140,50 @@ public class AdminServicesDao implements IAdminServicesDao {
 		} finally {
 			em.close();
 		}
+	}
+
+	@Override
+	public void deleteInstructorById(int instrucorID) throws NoSuchRecordFoundException, SomethingWentWrongException {
+		Instructor instructor = findInstructorById(instrucorID);
+		EntityManager em = null;
+		EntityTransaction et = null;
+		try {
+			em = EMutils.getEntityManager();
+			et = em.getTransaction();
+			et.begin();
+			instructor = em.merge(instructor);
+			instructor.setAccountStatus(State.DELETED);
+			et.commit();
+		} catch (PersistenceException p) {
+			et.rollback();
+			throw new SomethingWentWrongException("oops can't delete student please try later");
+		} finally {
+			em.close();
+		}
+	}
+
+	@Override
+	public Map<String, Double> showStats(int courseID) throws NoSuchRecordFoundException, SomethingWentWrongException {
+		Course course = findCourseById(courseID);
+		Set<Assignment> assignments = course.getAssignments();
+		Set<Quiz> quizzes = course.getQuizzes();
+		Set<Lecture> lectures = course.getLectures();
+		List<Assignment> CompletedAssignments = assignments.stream().filter(a -> a.getIsCompleted() == Status.COMPLETED)
+				.collect(Collectors.toList());
+		List<Quiz> Completedquizzes = quizzes.stream().filter(a -> a.getIsCompleted() == Status.COMPLETED)
+				.collect(Collectors.toList());
+		List<Lecture> CompletedLectures = lectures.stream().filter(a -> a.getIsWatched() == Status.COMPLETED)
+				.collect(Collectors.toList());
+
+		double assignMentSubmissionRate = Math.round(((CompletedAssignments.size()/assignments.size())*100)*100.00)/100.00;
+		double quizzesSubmissionRate = Math.round(((Completedquizzes.size()/quizzes.size())*100)*100.00)/100.00;
+		double attendence = Math.round(((CompletedLectures.size()/lectures.size())*100)*100.00)/100.00;
+		
+		Map<String, Double> stats = new HashMap<>();
+		stats.put("assignMentSubmissionRate", assignMentSubmissionRate);
+		stats.put("quizzesSubmissionRate", quizzesSubmissionRate);
+		stats.put("attendence", attendence);
+		return stats;
 	}
 
 }

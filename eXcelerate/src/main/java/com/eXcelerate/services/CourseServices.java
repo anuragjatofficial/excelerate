@@ -1,8 +1,10 @@
 package com.eXcelerate.services;
 
-import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import com.eXcelerate.dao.CourseServicesDao;
 import com.eXcelerate.dao.ICourseServicesDao;
@@ -10,6 +12,7 @@ import com.eXcelerate.entities.Assignment;
 import com.eXcelerate.entities.Course;
 import com.eXcelerate.entities.Lecture;
 import com.eXcelerate.entities.Quiz;
+import com.eXcelerate.entities.Status;
 import com.eXcelerate.exceptions.AlreadyUpdatedException;
 import com.eXcelerate.exceptions.NoAccountLoggedInException;
 import com.eXcelerate.exceptions.NoSuchRecordFoundException;
@@ -52,24 +55,48 @@ public class CourseServices implements ICourseServices {
 	}
 
 	@Override
-	public void updateAssignmentStatus(int courseID, int assignmentID,int status)
-			throws NoSuchRecordFoundException, SomethingWentWrongException, NoAccountLoggedInException, AlreadyUpdatedException {
+	public Boolean updateAssignmentStatus(int courseID, int assignmentID, int status) throws NoSuchRecordFoundException,
+			SomethingWentWrongException, NoAccountLoggedInException, AlreadyUpdatedException {
 		ICourseServicesDao iCsDao = new CourseServicesDao();
-		iCsDao.updateAssignmentStatus(courseID,assignmentID,status);
+		return iCsDao.updateAssignmentStatus(courseID, assignmentID, status);
 	}
 
 	@Override
-	public void updateQuizStatus(int courseID, int quizID, int status)
-			throws NoSuchRecordFoundException, SomethingWentWrongException, NoAccountLoggedInException, AlreadyUpdatedException {
+	public Boolean updateQuizStatus(int courseID, int quizID, int status) throws NoSuchRecordFoundException,
+			SomethingWentWrongException, NoAccountLoggedInException, AlreadyUpdatedException {
 		ICourseServicesDao iCsDao = new CourseServicesDao();
-		iCsDao.updateQuizStatus(courseID,quizID,status);
+		return iCsDao.updateQuizStatus(courseID, quizID, status);
 	}
 
 	@Override
 	public void updateLectureStatus(int courseID, int lectureID) throws NoSuchRecordFoundException,
 			SomethingWentWrongException, NoAccountLoggedInException, AlreadyUpdatedException {
 		ICourseServicesDao iCsDao = new CourseServicesDao();
-		iCsDao.updateLectureStatus(courseID,lectureID);
+		iCsDao.updateLectureStatus(courseID, lectureID);
+	}
+
+	@Override
+	public Map<String, Double> showStats()
+			throws NoSuchRecordFoundException, SomethingWentWrongException, NoAccountLoggedInException {
+		List<Assignment> assignments = showAssignments();
+		List<Quiz> quizzes = showQuizzes();
+		List<Lecture> lectures = showLectures();
+		List<Assignment> CompletedAssignments = assignments.stream().filter(a -> a.getIsCompleted() == Status.COMPLETED)
+				.collect(Collectors.toList());
+		List<Quiz> Completedquizzes = quizzes.stream().filter(a -> a.getIsCompleted() == Status.COMPLETED)
+				.collect(Collectors.toList());
+		List<Lecture> CompletedLectures = lectures.stream().filter(a -> a.getIsWatched() == Status.COMPLETED)
+				.collect(Collectors.toList());
+
+		double assignMentSubmissionRate = Math.round(((CompletedAssignments.size()/assignments.size())*100)*100.00)/100.00;
+		double quizzesSubmissionRate = Math.round(((Completedquizzes.size()/quizzes.size())*100)*100.00)/100.00;
+		double attendence = Math.round(((CompletedLectures.size()/lectures.size())*100)*100.00)/100.00;
+		
+		Map<String, Double> stats = new HashMap<>();
+		stats.put("assignMentSubmissionRate", assignMentSubmissionRate);
+		stats.put("quizzesSubmissionRate", quizzesSubmissionRate);
+		stats.put("attendence", attendence);
+		return stats;
 	}
 
 }

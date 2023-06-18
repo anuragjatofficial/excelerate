@@ -21,6 +21,7 @@ public class InstructorUi {
 	public static void showInstructorUi(Scanner sc) {
 		int choice = 0;
 		do {
+			System.out.println("");
 			System.out.println("Press 1. See All courses");
 			System.out.println("Press 2. See All students");
 			System.out.println("Press 3. Add new Assignment ");
@@ -29,6 +30,9 @@ public class InstructorUi {
 			System.out.println("Press 6. See all lectures by course ID ");
 			System.out.println("Press 7. See all assignments by course ID");
 			System.out.println("Press 8. See all quizzes by course ID ");
+			System.out.println("Press 9. Delete Lecture by lecture ID ");			
+			System.out.println("Press 10. Delete Assignment by assignment ID ");			
+			System.out.println("Press 11. Delete Quiz by quiz ID ");			
 			System.out.println("Press 0. Exit");
 			System.out.print("Enter your choice : ");
 			choice = sc.nextInt();
@@ -45,6 +49,7 @@ public class InstructorUi {
 			case 10 -> deleteAssignmentByAssignmentID(sc);
 			case 11 -> deleteQuizByQuizID(sc);
 			case 0 -> choice = 0;
+			default -> System.out.println("invalid choice "+ choice);
 			}
 		} while (choice != 0);
 	}
