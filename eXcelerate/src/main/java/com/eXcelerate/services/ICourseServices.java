@@ -1,6 +1,7 @@
 package com.eXcelerate.services;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import com.eXcelerate.entities.Assignment;
@@ -24,13 +25,15 @@ public interface ICourseServices {
 	List<Lecture> showLectures()
 			throws NoSuchRecordFoundException, SomethingWentWrongException, NoAccountLoggedInException;
 
-	void updateAssignmentStatus(int courseID, int assignmentID, int status)
-			throws NoSuchRecordFoundException, SomethingWentWrongException, NoAccountLoggedInException, AlreadyUpdatedException;
+	Boolean updateAssignmentStatus(int courseID, int assignmentID, int status) throws NoSuchRecordFoundException,
+			SomethingWentWrongException, NoAccountLoggedInException, AlreadyUpdatedException;
 
-	void updateQuizStatus(int courseID, int quizID, int status)
-			throws NoSuchRecordFoundException, SomethingWentWrongException, NoAccountLoggedInException, AlreadyUpdatedException;
+	Boolean updateQuizStatus(int courseID, int quizID, int status) throws NoSuchRecordFoundException,
+			SomethingWentWrongException, NoAccountLoggedInException, AlreadyUpdatedException;
 
-	void updateLectureStatus(int courseID, int lectureID)
-			throws NoSuchRecordFoundException, SomethingWentWrongException, NoAccountLoggedInException, AlreadyUpdatedException;
+	void updateLectureStatus(int courseID, int lectureID) throws NoSuchRecordFoundException,
+			SomethingWentWrongException, NoAccountLoggedInException, AlreadyUpdatedException;
+
+	Map<String, Double> showStats() throws NoSuchRecordFoundException, SomethingWentWrongException, NoAccountLoggedInException;
 
 }

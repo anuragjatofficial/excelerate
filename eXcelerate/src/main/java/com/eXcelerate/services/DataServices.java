@@ -67,4 +67,25 @@ public class DataServices implements IDataServices {
 		return iDs.seeAllQuizzesByCourseID(courseID);
 	}
 
+	@Override
+	public void deleteLectureByLectureID(int courseID, int lectureID)
+			throws SomethingWentWrongException, NoSuchRecordFoundException {
+		IDataServicesDao iDs = new DataServicesDao();
+		iDs.deleteLectureByLectureID(courseID,lectureID);
+	}
+
+	@Override
+	public void deleteAssignmentByAssignmentID(int courseID, int assignmentID)
+			throws SomethingWentWrongException, NoSuchRecordFoundException {
+		IDataServicesDao iDs = new DataServicesDao();
+		iDs.deleteAssignmentByAssignmentID(courseID,assignmentID);
+	}
+
+	@Override
+	public void deleteQuizByQuizID(int courseID, int quizID)
+			throws SomethingWentWrongException, NoSuchRecordFoundException {
+		IDataServicesDao iDs = new DataServicesDao();
+		iDs.deleteQuizByQuizID(courseID,quizID);
+	}
+
 }
