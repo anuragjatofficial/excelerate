@@ -1,6 +1,7 @@
 package com.eXcelerate.services;
 
 import java.util.List;
+import java.util.Set;
 
 import com.eXcelerate.dao.DataServicesDao;
 import com.eXcelerate.dao.IDataServicesDao;
@@ -44,6 +45,26 @@ public class DataServices implements IDataServices {
 			throws SomethingWentWrongException, NoSuchRecordFoundException {
 		IDataServicesDao iDs = new DataServicesDao();
 		iDs.addLecture(courseId,lecture);
+	}
+
+	@Override
+	public Set<Lecture> seeAllLecturesByCourseID(int courseID) throws SomethingWentWrongException, NoSuchRecordFoundException {
+		IDataServicesDao iDs = new DataServicesDao();
+		return iDs.seeAllLecturesByCourseID(courseID);
+	}
+
+	@Override
+	public Set<Assignment> seeAllAssignmentsByCourseID(int courseID)
+			throws SomethingWentWrongException, NoSuchRecordFoundException {
+		IDataServicesDao iDs = new DataServicesDao();
+		return iDs.seeAllAssignmentsByCourseID(courseID);
+	}
+
+	@Override
+	public Set<Quiz> seeAllQuizzesByCourseID(int courseID)
+			throws SomethingWentWrongException, NoSuchRecordFoundException {
+		IDataServicesDao iDs = new DataServicesDao();
+		return iDs.seeAllQuizzesByCourseID(courseID);
 	}
 
 }

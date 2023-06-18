@@ -10,6 +10,7 @@ import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -23,13 +24,13 @@ public class Course {
 	private String courseName;
 	@ManyToMany(mappedBy = "courses", cascade = CascadeType.ALL)
 	private Set<Student> students = new HashSet<>();
-	@ElementCollection
+	@ElementCollection(fetch=FetchType.EAGER)
 	@Embedded
 	private Set<Assignment> assignments = new HashSet<>();
-	@ElementCollection
+	@ElementCollection(fetch=FetchType.EAGER)
 	@Embedded
 	private Set<Quiz> quizzes = new HashSet<>();
-	@ElementCollection
+	@ElementCollection(fetch=FetchType.EAGER)
 	@Embedded
 	private Set<Lecture> lectures = new HashSet<>();
 	@Enumerated(EnumType.STRING)
@@ -37,7 +38,6 @@ public class Course {
 
 	public Course() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
 	public Course(String courseName) {

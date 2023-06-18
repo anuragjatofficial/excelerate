@@ -1,6 +1,7 @@
 package com.eXcelerate.dao;
 
 import java.util.List;
+import java.util.Set;
 
 import com.eXcelerate.entities.Assignment;
 import com.eXcelerate.entities.Course;
@@ -21,5 +22,11 @@ public interface IDataServicesDao {
 	void addQuiz(int courseId, Quiz quiz)throws SomethingWentWrongException, NoSuchRecordFoundException;
 
 	void addLecture(int courseId, Lecture lecture)throws SomethingWentWrongException, NoSuchRecordFoundException;
+
+	Set<Lecture> seeAllLecturesByCourseID(int courseID)throws SomethingWentWrongException, NoSuchRecordFoundException;
+
+	Set<Assignment> seeAllAssignmentsByCourseID(int courseID)throws SomethingWentWrongException, NoSuchRecordFoundException;
+
+	Set<Quiz> seeAllQuizzesByCourseID(int courseID)throws SomethingWentWrongException, NoSuchRecordFoundException;
 
 }
