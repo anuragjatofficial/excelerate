@@ -57,6 +57,7 @@ public class MainUi {
 			case 4 -> RegisterUi.registerStudent(sc);
 			case 5 -> LoginUi.adminLogin(sc);
 			case 0 -> {
+				System.out.println("");
 				System.out.println("Thanks for using our services .. !");
 				choice = 0;
 			}
