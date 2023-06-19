@@ -25,7 +25,13 @@ eXcelerate is a robust software solution that empowers remote education and trai
 - Update quiz status
 - Update lecture status
 - See their stats 
-
+### Admin can :.
+- Add course
+- Assign courses to student
+- Delete course by ID
+- Delete student by ID
+- Delete Instructor by ID
+- Show course stats 
 ## Installation steps
 
 To install & run this application follow these few steps
