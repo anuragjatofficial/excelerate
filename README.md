@@ -1,5 +1,8 @@
 
 # eXcelerate: Accelerating Learning through Online Platforms
+
+ ![Database Schema](./screenshots/logo.png)
+
 eXcelerate is a robust software solution that empowers remote education and training. This platform is specifically designed to equip educators with powerful tools for creating and delivering online courses, while providing students with an intuitive interface to access course materials, engage in assignments, and monitor their progress. With its advanced features like progress tracking, performance analytics, and effective communication tools, eXcelerate revolutionizes the teaching and learning experience, facilitating accelerated learning through online platforms.
 
 ## Roles:
