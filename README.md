@@ -92,5 +92,5 @@ Made with ❤️ by [Anurag Choudhary](https://github.com/anuragjatofficial)
 For any inquiries or collaboration opportunities, feel free to reach out:
 
 - Email: anurag.1101140@gmail.com
-- LinkedIn: [Anurag Jat](https://www.linkedin.com/in/anuragjatofficial)
+- LinkedIn: [Anurag Choudhary](https://www.linkedin.com/in/anurag-choudhary-7a0874258/)
 - GitHub: [anuragjatofficial](https://github.com/anuragjatofficial)
